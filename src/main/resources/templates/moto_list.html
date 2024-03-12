@@ -24,10 +24,7 @@
           <div class="mb-3">
             <label for="brand" class="form-label">バイクメーカー</label>
             <select class="form-select" id="brand" aria-label="Default select example">
-              <option selected>Honda</option>
-              <option value="1">Kawasaki</option>
-              <option value="2">Yamaha</option>
-              <option value="3">Suzuki</option>
+              <option th:each="brand : ${brands}" th:text="${brand.brandName}" th:value="${brand.brandId}"></option>
             </select>
           </div>
         </div>
@@ -59,13 +56,17 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>1</td>
-                <td>Kawasaki</td>
-                <td>Z900RS</td>
-                <td>水冷4気筒</td>
-                <td>かっこいい</td>
+              <!--th:object属性でオブジェクトの変数名を指定すれば、中のタグの属性でオブジェクトのフィールドを用いる時に変数名を省略できる($ではなく*を書く)-->
+              <tr th:each="moto : ${motos}" th:object="${moto}">
+                <th scope="row" th:text="*{motoNo}"></th>
+                <td th:text="*{brand.brandName}"></td>
+                <!--th:object属性を用いなければ本来は
+                <td th:text="${moto.motoName}"></td>」という書き方になる-->
+                <td th:text="*{motoName}"></td>
+                <td th:text="*{cooling} + *{cylinder}"></td>
+                <!-- th:text=""の中にはコントローラから渡されたインスタンスだけでなく、''で囲った文字列を + で結合して表示もできる -->
+                <td th:text="*{price} + '円です'"></td>
+                <td th:text="*{comment}"></td>
               </tr>
             </tbody>
           </table>
