@@ -1,0 +1,13 @@
+version: "3.1"
+
+services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example # rootユーザのパスワード
+      MYSQL_DATABASE: motocatalogdb # データベース名
+      MYSQL_USER: develop # ユーザ名
+      MYSQL_PASSWORD: develop # パスワード
+    ports:
+      - 3309:3306 # ポートフォワードを設定
