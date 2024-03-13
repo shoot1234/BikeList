@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.planaria.sample.motocatalog.bean.Brand;
 import jp.co.planaria.sample.motocatalog.bean.Motorcycle;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j//ログ部品を使えるようになる
 @Controller
 public class MotosController {
 
@@ -37,6 +38,8 @@ public class MotosController {
 
     model.addAttribute("brands", brands);
     model.addAttribute("motos", motos);
+
+    log.info("motos: {}", motos);
 
     return "moto_list";
   }
