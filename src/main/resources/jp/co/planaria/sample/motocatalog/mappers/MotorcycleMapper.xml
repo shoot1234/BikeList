@@ -7,7 +7,7 @@
     <association property="brand" javaType="jp.co.planaria.sample.motocatalog.beans.Brand" autoMapping="true">
     </association>
   </resultMap>
-  <select id="selectAll" resultMap="motorcycleMap">
+  <select id="selectByCondition" resultMap="motorcycleMap">
     SELECT
         m_motorcycle.moto_no
         , m_motorcycle.moto_name
@@ -21,6 +21,38 @@
         m_motorcycle 
         LEFT OUTER JOIN m_brand 
             ON m_motorcycle.brand_id = m_brand.brand_id 
+    <where>
+      <if test="brandId != null"><!-- test属性に条件式を書く-->
+        AND m_motorcycle.brand_id = #{brandId}
+      </if>
+      <if test="keyword != null">
+        AND m_motorcycle.moto_name LIKE CONCAT('%', #{keyword}, '%')
+      </if>
+    </where>
+    ORDER BY
+        moto_no;
+  </select>
+
+  <select id="selectByPK" resultMap="motorcycleMap">
+    SELECT
+        m_motorcycle.moto_no
+        , m_motorcycle.moto_name
+        , m_motorcycle.seat_height
+        , m_motorcycle.cylinder
+        , m_motorcycle.cooling
+        , m_motorcycle.price
+        , m_motorcycle.comment
+        , m_motorcycle.brand_id
+        , m_motorcycle.version
+        , m_motorcycle.ins_dt
+        , m_motorcycle.upd_dt
+        , m_brand.brand_name
+    FROM
+        m_motorcycle 
+        LEFT OUTER JOIN m_brand 
+            ON m_motorcycle.brand_id = m_brand.brand_id 
+    WHERE
+        m_motorcycle.moto_no = #{motoName}
     ORDER BY
         moto_no;
   </select>

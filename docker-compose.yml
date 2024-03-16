@@ -9,5 +9,6 @@ services:
       MYSQL_DATABASE: motocatalogdb # データベース名
       MYSQL_USER: develop # ユーザ名
       MYSQL_PASSWORD: develop # パスワード
+      TZ: Asia/Tokyo #デフォルトのタイムゾーンはUTCなので、ローカル環境の日本時間と合わなくなる為変更
     ports:
       - 3309:3306 # ポートフォワードを設定

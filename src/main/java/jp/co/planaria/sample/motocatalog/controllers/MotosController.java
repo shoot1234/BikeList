@@ -1,6 +1,5 @@
 package jp.co.planaria.sample.motocatalog.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.planaria.sample.motocatalog.beans.Brand;
 import jp.co.planaria.sample.motocatalog.beans.Motorcycle;
+import jp.co.planaria.sample.motocatalog.beans.SearchCondition;
 import jp.co.planaria.sample.motocatalog.services.MotosService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,7 +35,8 @@ public class MotosController {
     List<Brand> brands = service.getBrands();
 
     //バイク
-    List<Motorcycle> motos = service.getMotos();
+    SearchCondition condition = new SearchCondition();
+    List<Motorcycle> motos = service.getMotos(condition);
 
     model.addAttribute("brands", brands);
     model.addAttribute("motos", motos);
