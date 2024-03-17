@@ -17,7 +17,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.planaria.sample.motocatalog.beans.Motorcycle;
-import jp.co.planaria.sample.motocatalog.beans.SearchCondition;
+import jp.co.planaria.sample.motocatalog.beans.SearchForm;
 
 @SpringBootTest
 public class MotosServiceTest {
@@ -46,7 +46,7 @@ public class MotosServiceTest {
   @ParameterizedTest //テストメソッドに引数を与えてテストしたい時に付けるアノテーション
   @CsvSource({"01, Honda", "02, Kawasaki", "03, Yamaha"})//""で囲われた値がメソッドの引数として渡されて、この例では3回テストメソッドが実行されるアノテーション
   void test001(String brandId, String brandName) {
-      SearchCondition condition = new SearchCondition();
+      SearchForm condition = new SearchForm();
       condition.setBrandId(brandId);
 
       List<Motorcycle> motos = service.getMotos(condition);//テスト対象
@@ -61,7 +61,7 @@ public class MotosServiceTest {
   @DisplayName("バイク一覧取得 条件： ブランドID 該当なし")
   @Test
   void test002() {
-    SearchCondition condition = new SearchCondition();
+    SearchForm condition = new SearchForm();
     condition.setBrandId("99");
 
     List<Motorcycle> motos = service.getMotos(condition);//テスト対象
@@ -72,7 +72,7 @@ public class MotosServiceTest {
   @ParameterizedTest
   @CsvSource({"GB350", "Z900RS CAFE", "W800 CAFE"})
   void test003(String motoName) {
-      SearchCondition condition = new SearchCondition();
+      SearchForm condition = new SearchForm();
       condition.setKeyword(motoName);
 
       List<Motorcycle> motos = service.getMotos(condition);//テスト対象
@@ -89,7 +89,7 @@ public class MotosServiceTest {
     @ParameterizedTest
     @CsvSource({"GB35, GB350", "900RS CAFE, Z900RS CAFE", "0 CAF, W800 CAFE"})
     void test004(String keyword, String motoName) {
-      SearchCondition condition = new SearchCondition();
+      SearchForm condition = new SearchForm();
       condition.setKeyword(keyword);
 
       List<Motorcycle> motos = service.getMotos(condition);//テスト対象
@@ -102,7 +102,7 @@ public class MotosServiceTest {
     @DisplayName("バイク一覧取得 条件：バイク名 該当なし")
     @Test
     void test005() {
-      SearchCondition condition = new SearchCondition();
+      SearchForm condition = new SearchForm();
       condition.setKeyword("存在しないバイク名");
 
       List<Motorcycle> motos = service.getMotos(condition);//テスト対象
@@ -113,7 +113,7 @@ public class MotosServiceTest {
   @ParameterizedTest
   @CsvSource({"02, Z900, Z900RS", "03, R1, YZF-R1", "01, bel, Rebel"})
   void test006(String brandId, String keyword, String motoName) {
-    SearchCondition condition = new SearchCondition();
+    SearchForm condition = new SearchForm();
     condition.setBrandId(brandId);
     condition.setKeyword(keyword);
 
@@ -129,7 +129,7 @@ public class MotosServiceTest {
   @ParameterizedTest
   @CsvSource({"03, Z900", "03, aaYZF-R1"})
   void test007(String brandId, String keyword) {
-    SearchCondition condition = new SearchCondition();
+    SearchForm condition = new SearchForm();
     condition.setBrandId(brandId);
     condition.setKeyword(keyword);
 
@@ -140,7 +140,7 @@ public class MotosServiceTest {
   @DisplayName("バイク一覧取得 条件： なし 全検該当")
   @Test
   void test008() {
-    SearchCondition condition = new SearchCondition();
+    SearchForm condition = new SearchForm();
 
     List<Motorcycle> motos = service.getMotos(condition);//テスト対象
     Assertions.assertThat(motos.size()).isEqualTo(9);
