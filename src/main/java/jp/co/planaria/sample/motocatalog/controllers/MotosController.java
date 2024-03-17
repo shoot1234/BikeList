@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.planaria.sample.motocatalog.beans.Brand;
 import jp.co.planaria.sample.motocatalog.beans.Motorcycle;
-import jp.co.planaria.sample.motocatalog.beans.SearchCondition;
+import jp.co.planaria.sample.motocatalog.beans.SearchForm;
 import jp.co.planaria.sample.motocatalog.services.MotosService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,22 +28,53 @@ public class MotosController {
     model.addAttribute("name", nameA);
       return "test";
   }
+  /**
+   * バイク一覧を検索する。
+   * @param searchForm 検索条件
+   * @param model Model
+   * @return 遷移先
+   */
   
   @GetMapping("/motos")
-  public String motos(Model model) {
-    //ブランド
-    List<Brand> brands = service.getBrands();
+  //moto_list.htmlのフォームから送信される値のname属性の値と、引数のsearchFomのフィールド名でマッピングして、value属性の値やinputタグの入力欄の値を自動で代入する
+  public String motos(SearchForm searchForm, Model model) {
+    log.info("検索条件；{}", searchForm);
+    //ブランドリストを準備
+    this.setBrands(model);
 
     //バイク
-    SearchCondition condition = new SearchCondition();
-    List<Motorcycle> motos = service.getMotos(condition);
-
-    model.addAttribute("brands", brands);
+    List<Motorcycle> motos = service.getMotos(searchForm);
     model.addAttribute("motos", motos);
 
     log.debug("motos: {}", motos);
 
     return "moto_list";
   }
-  
+
+  //
+  /**
+   * 検索条件をクリアする。
+   * motos_list.htmlのリセットボタンを押した時に入力欄を空にする為に、引数searchFormをnullにして画面に再アクセスして入力欄を空にする
+   * @param searchForm 検索条件
+   * @param model Model
+   * @return 遷移先
+   */
+  @GetMapping("/motos/reset")
+  public String reset(SearchForm searchForm, Model model) {
+    //ブランドリストを準備
+    this.setBrands(model);
+    //検索条件のクリア
+    searchForm = new SearchForm();
+    return "moto_list";
+  }
+
+  /**
+   * ブランドリストをModelにセットする。
+   * @param model Model
+   */
+  private void setBrands(Model model) {
+    //ブランド
+    List<Brand> brands = service.getBrands();
+    model.addAttribute("brands", brands);
+  }
 }

@@ -3,7 +3,7 @@ package jp.co.planaria.sample.motocatalog.beans;
 import lombok.Data;
 
 @Data
-public class SearchCondition {
+public class SearchForm {
   
   //ブランドID
   private String brandId;
