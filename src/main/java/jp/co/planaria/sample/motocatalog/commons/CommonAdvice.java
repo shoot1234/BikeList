@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.InitBinder;
 
 /**
- * リクエストの空白文字をnullに変換する共通処理。
+ * リクエストの空白文字をnullに変換する共通処理。入力欄フォームを空欄にして全件検索したい時に
+ * 送信されたリクエストの空文字をnullに変換する。
  */
 @ControllerAdvice
 public class CommonAdvice {
