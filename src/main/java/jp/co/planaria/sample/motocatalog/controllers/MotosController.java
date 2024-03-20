@@ -1,5 +1,6 @@
 package jp.co.planaria.sample.motocatalog.controllers;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,7 @@ public class MotosController {
     //バイク
     List<Motorcycle> motos = service.getMotos(searchForm);
     model.addAttribute("motos", motos);
+    model.addAttribute("datetime", LocalDateTime.now());
 
     log.debug("motos: {}", motos);
 

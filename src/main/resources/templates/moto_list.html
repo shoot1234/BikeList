@@ -18,13 +18,14 @@
         <span class="navbar-brand mb-0 h1" th:text="#{page.search}"></span>
       </div>
     </nav>
+    <div th:text="${#temporals.format(datetime, 'yyyy/MM/dd HH:mm:ss')}"></div>
     <div class="container">
       <form th:action="@{/motos}" method="get">
         <div class="row">
           <div class="col">
             <div class="mb-3">
               <label for="brand" class="form-label" th:text="#{searchForm.brand}"></label>
-              <!-- セレクトボックスの値がコントローラに送信されたら、name属性の値やth:field属性(この属性は、コントローラで画面遷移させる時にsearchForm.brandIdの値をserectタグやinputタグの入力欄の初期値として表示させる)の値と、コントローラのメソッドの引数に指定したbeanクラス(SearchForm)のフィールドとをマッピングして値を受け取る -->
+              <!-- セレクトボックスの値がコントローラに送信されたら、name属性の値やth:field属性(この属性は、コントローラで画面遷移させる時にsearchForm.brandIdの値をselectタグやinputタグの入力欄の初期値として表示させる)の値と、コントローラのメソッドの引数に指定したbeanクラス(SearchForm)のフィールドとをマッピングして値を受け取る -->
               <select class="form-select" th:field="${searchForm.brandId}" id="brand" aria-label="Default select example">
                 <option value=""></option>
                 <option th:each="brand : ${brands}" th:text="${brand.brandName}" th:value="${brand.brandId}"></option>
@@ -68,9 +69,10 @@
                 <!--th:object属性を用いなければ本来は
                 <td th:text="${moto.motoName}"></td>」という書き方になる-->
                 <td th:text="*{motoName}"></td>
-                <td th:text="*{cooling} + *{cylinder}"></td>
                 <!-- th:text=""の中にはコントローラから渡されたインスタンスだけでなく、''で囲った文字列を + で結合して表示もできる -->
-                <td th:text="*{price} + '円です'"></td>
+                <td th:text="*{cooling} + *{cylinder} + '気筒'"></td>
+                <!-- 式基本オブジェクト、常に利用可能なオブジェクトや変数マップがあります。 #numbers：数値オブジェクトに対するユーティリティーメソッド群。　整数の最小桁数と千の位の区切り文字を設定します(thymeleafの公式ドキュメントに詳しく書いている) -->
+                <td th:text="*{#numbers.formatInteger(price, 3, 'COMMA')}"></td>
                 <td th:text="*{comment}"></td>
               </tr>
             </tbody>
