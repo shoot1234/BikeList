@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,8 +39,13 @@ public class MotosController {
   
   @GetMapping("/motos")
   //moto_list.htmlのフォームから送信される値のname属性の値と、引数のsearchFomのフィールド名でマッピングして、value属性の値やinputタグの入力欄の値を自動で代入する
-  public String motos(SearchForm searchForm, Model model) {
+  public String motos(@Validated SearchForm searchForm, BindingResult result, Model model) {
     log.info("検索条件；{}", searchForm);
+    if (result.hasErrors()) {
+      //入力チェックエラーがある場合
+      return "moto_list";      
+    }
+
     //ブランドリストを準備
     this.setBrands(model);
 
