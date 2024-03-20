@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>バイク管理</title>
+    <title th:text="#{site.title}"></title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -15,7 +15,7 @@
     <!-- As a heading -->
     <nav class="navbar bg-dark border-bottom border-bottom-dark mb-3" data-bs-theme="dark">
       <div class="container-fluid">
-        <span class="navbar-brand mb-0 h1">バイク管理</span>
+        <span class="navbar-brand mb-0 h1" th:text="#{page.search}"></span>
       </div>
     </nav>
     <div class="container">
@@ -23,7 +23,7 @@
         <div class="row">
           <div class="col">
             <div class="mb-3">
-              <label for="brand" class="form-label">バイクメーカー</label>
+              <label for="brand" class="form-label" th:text="#{searchForm.brand}"></label>
               <!-- セレクトボックスの値がコントローラに送信されたら、name属性の値やth:field属性(この属性は、コントローラで画面遷移させる時にsearchForm.brandIdの値をserectタグやinputタグの入力欄の初期値として表示させる)の値と、コントローラのメソッドの引数に指定したbeanクラス(SearchForm)のフィールドとをマッピングして値を受け取る -->
               <select class="form-select" th:field="${searchForm.brandId}" id="brand" aria-label="Default select example">
                 <option value=""></option>
@@ -33,7 +33,7 @@
           </div>
           <div class="col">
             <div class="mb-3">
-              <label for="keyword" class="form-label">キーワード</label>
+              <label for="keyword" class="form-label" th:text="#{searchForm.keyword}"></label>
               <input type="text" class="form-control" th:field="${searchForm.keyword}" id="exampleFormControlInput1" placeholder="車名もしくはコメントの一部を入力" />
               <div class="text-danger" th:errors="${searchForm.keyword}"></div>
             </div>
@@ -41,9 +41,9 @@
         </div>
         <div class="" row>
           <div class="col d-flex flex-row-reverse">
-            <button type="button" class="btn btn-primary">新規</button>
-            <a th:href="@{/motos/reset}" class="btn btn-secondary ms-1 me-1">リセット</a>
-            <button type="submit" class="btn btn-success">検索</button>
+            <button type="button" class="btn btn-primary" th:text="#{btn.new}"></button>
+            <a th:href="@{/motos/reset}" class="btn btn-secondary ms-1 me-1" th:text="#{btn.reset}"></a>
+            <button type="submit" class="btn btn-success" th:text="#{btn.search}"></button>
           </div>
         </div>
       </form>
@@ -52,12 +52,12 @@
           <table class="table table-dark table-striped mt-3">
             <thead>
               <tr>
-                <th scope="col">No.</th>
-                <th scope="col">メーカー</th>
-                <th scope="col">車名</th>
-                <th scope="col">エンジン</th>
-                <th scope="col">価格</th>
-                <th scope="col">コメント</th>
+                <th scope="col" th:text="#{label.motoNo}"></th>
+                <th scope="col" th:text="#{label.brand}"></th>
+                <th scope="col" th:text="#{label.motoName}"></th>
+                <th scope="col" th:text="#{label.engine}"></th>
+                <th scope="col" th:text="#{label.price}"></th>
+                <th scope="col" th:text="#{label.comment}"></th>
               </tr>
             </thead>
             <tbody>
