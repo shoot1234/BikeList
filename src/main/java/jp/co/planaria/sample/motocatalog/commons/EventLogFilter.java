@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class EventLogFilter {
   
-  @Before("execution(* jp.co.planaria.sample.motocatalog..*Controller.*(..))")
+  @Before("execution(* jp.co.planaria.sample.motocatalog..*Controller.*(..))")//AOPのアノテーション
   public void beforeLog(JoinPoint joinPoint) {
     //Controllerのメソッド呼び出しに前処理として実行される
     log.info(String.format("%s START", joinPoint.toShortString()));

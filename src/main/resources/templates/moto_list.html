@@ -35,6 +35,7 @@
             <div class="mb-3">
               <label for="keyword" class="form-label">キーワード</label>
               <input type="text" class="form-control" th:field="${searchForm.keyword}" id="exampleFormControlInput1" placeholder="車名もしくはコメントの一部を入力" />
+              <div class="text-danger" th:errors="${searchForm.keyword}"></div>
             </div>
           </div>
         </div>
