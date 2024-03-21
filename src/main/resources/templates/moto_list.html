@@ -18,11 +18,15 @@
         <span class="navbar-brand mb-0 h1" th:text="#{page.search}"></span>
       </div>
     </nav>
-    <div th:text="${#temporals.format(datetime, 'yyyy/MM/dd HH:mm:ss')}"></div>
     <div class="container">
       <form th:action="@{/motos}" method="get">
-        <div class="row">
-          <div class="col">
+        <div class="row justify-content-end">
+          <div class="col-2">
+            <div th:text="${#temporals.format(datetime, 'yyyy/MM/dd HH:mm:ss')}"></div>
+          </div>
+        </div>
+        <div class="row justify-content-around">
+          <div class="col-3">
             <div class="mb-3">
               <label for="brand" class="form-label" th:text="#{searchForm.brand}"></label>
               <!-- セレクトボックスの値がコントローラに送信されたら、name属性の値やth:field属性(この属性は、コントローラで画面遷移させる時にsearchForm.brandIdの値をselectタグやinputタグの入力欄の初期値として表示させる)の値と、コントローラのメソッドの引数に指定したbeanクラス(SearchForm)のフィールドとをマッピングして値を受け取る -->
@@ -32,7 +36,7 @@
               </select>
             </div>
           </div>
-          <div class="col">
+          <div class="col-5">
             <div class="mb-3">
               <label for="keyword" class="form-label" th:text="#{searchForm.keyword}"></label>
               <input type="text" class="form-control" th:field="${searchForm.keyword}" id="exampleFormControlInput1" placeholder="車名もしくはコメントの一部を入力" />
@@ -53,12 +57,12 @@
           <table class="table table-dark table-striped mt-3">
             <thead>
               <tr>
-                <th scope="col" th:text="#{label.motoNo}"></th>
-                <th scope="col" th:text="#{label.brand}"></th>
-                <th scope="col" th:text="#{label.motoName}"></th>
-                <th scope="col" th:text="#{label.engine}"></th>
-                <th scope="col" th:text="#{label.price}"></th>
-                <th scope="col" th:text="#{label.comment}"></th>
+                <th scope="col" th:text="#{label.motoNo}" class="text-center"></th>
+                <th scope="col" th:text="#{label.brand}" class="text-center"></th>
+                <th scope="col" th:text="#{label.motoName}" class="text-center"></th>
+                <th scope="col" th:text="#{label.engine}" class="text-center"></th>
+                <th scope="col" th:text="#{label.price}" class="text-center"></th>
+                <th scope="col" th:text="#{label.comment}" class="text-center"></th>
               </tr>
             </thead>
             <tbody>
@@ -72,7 +76,7 @@
                 <!-- th:text=""の中にはコントローラから渡されたインスタンスだけでなく、''で囲った文字列を + で結合して表示もできる -->
                 <td th:text="*{cooling} + *{cylinder} + '気筒'"></td>
                 <!-- 式基本オブジェクト、常に利用可能なオブジェクトや変数マップがあります。 #numbers：数値オブジェクトに対するユーティリティーメソッド群。　整数の最小桁数と千の位の区切り文字を設定します(thymeleafの公式ドキュメントに詳しく書いている) -->
-                <td th:text="*{#numbers.formatInteger(price, 3, 'COMMA')}"></td>
+                <td th:text="*{#numbers.formatInteger(price, 3, 'COMMA')}" class="text-end"></td>
                 <td th:text="*{comment}"></td>
               </tr>
             </tbody>
