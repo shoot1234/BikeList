@@ -25,7 +25,7 @@
             <div class="alert alert-danger" role="alert" th:each="err : ${#fields.errors('*')}" th:text="${err}"></div>
           </div>
         </div>
-        <div class="row">
+        <div class="row" th:if="${motoForm.motoNo}">
           <div class="col">
             <label for="brand" class="form-label">番号</label>
             <span th:text="*{motoNo}"></span>
@@ -72,7 +72,8 @@
         </div>
         <div class="row mt-3">
           <div class="col text-end">
-            <button class="btn btn-primary" type="submit">保存</button>
+            <button class="btn btn-primary" type="submit" th:formaction="@{/motos/save}">保存</button>
+            <button class="btn btn-danger" type="submit" th:formaction="@{/motos/delete}" th:if="${motoForm.motoNo}">削除</button>
           </div>
         </div>
       </form>
