@@ -40,13 +40,27 @@ public class MotosService {
   }
 
   /**
+   * バイク情報を保存する。
+   * @param moto バイク情報
+   * @return 保存件数
+   */
+  public int save(Motorcycle moto) {
+    if (moto.getMotoNo() == null) {
+      // 登録
+      return this.add(moto);
+    } else {
+      // 更新
+      return this.update(moto);
+    }
+  }
+
+  /**
    * バイク情報を更新する。
    * @param moto バイク情報
    * @return 更新件数
    */
-
-   @Transactional
-  public int save(Motorcycle moto) {
+  @Transactional
+  private int update(Motorcycle moto) {
     int cnt = motorcycleMapper.update(moto);
     // 更新できなかった場合、更新されたか削除されたため楽観的排他エラーとする
     if (cnt == 0) {
@@ -59,5 +73,25 @@ public class MotosService {
        new String[]{"2件以上更新されました。"}, Locale.JAPANESE));
     }
     return cnt;
-  }  
+  }
+
+  /**
+   * バイク情報を登録する。
+   * @param moto バイク情報
+   * @return 更新件数
+   */
+  @Transactional
+  private int add(Motorcycle moto) {
+    // 新しいバイク番号を発行して使う
+    Integer motoNo = motorcycleMapper.selectNewMotoNo();
+    moto.setMotoNo(motoNo);
+    // バイク情報を登録
+    int cnt = motorcycleMapper.insert(moto);
+    // 更新できなかった場合、更新されたか削除されたため楽観的排他エラーとする
+    if (cnt == 0) {
+      throw new RuntimeException(messageSource.getMessage("error.Runtime",
+      new String[]{"登録に失敗しました。"}, Locale.JAPANESE));
+    }
+    return cnt;
+  }
 }

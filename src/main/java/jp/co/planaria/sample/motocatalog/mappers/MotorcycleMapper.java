@@ -33,5 +33,17 @@ public interface MotorcycleMapper {
   @Update("UPDATE m_motorcycle SET moto_name = #{motoName} , seat_height = #{seatHeight}, cylinder = #{cylinder}, cooling = #{cooling}, price = #{price}, comment = #{comment}, brand_id = #{brand.brandId}, version = version + 1, ins_dt = #{insDt}, upd_dt = #{updDt} WHERE moto_no = #{motoNo} AND version = #{version}")
   public int update(Motorcycle moto);
   
-  
+  /**
+   * 新しいバイク番号を採番する。
+   * @return　バイク番号
+   */
+  public Integer selectNewMotoNo();
+
+  /**
+   * バイク情報を登録する。
+   * @param moto　バイク情報
+   * @return　登録件数
+   */
+  public int insert(Motorcycle moto);
+
 }

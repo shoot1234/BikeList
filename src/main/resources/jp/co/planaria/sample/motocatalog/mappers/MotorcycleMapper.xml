@@ -56,4 +56,40 @@
     ORDER BY
         moto_no;
   </select>
+
+  <select id="selectNewMotoNo" resultType="Integer">
+    SELECT
+        MAX(m_motorcycle.moto_no) + 1
+    FROM
+        m_motorcycle 
+    FOR UPDATE
+  </select>
+  
+  <insert id="insert" parameterType="jp.co.planaria.sample.motocatalog.beans.Motorcycle">
+    INSERT
+    INTO m_motorcycle(
+      moto_no
+      , moto_name
+      , seat_height
+      , cylinder
+      , cooling
+      , price
+      , comment
+      , brand_id
+      , version
+      , ins_dt
+    )
+    VALUES (
+      #{motoNo}
+      , #{motoName}
+      , #{seatHeight}
+      , #{cylinder}
+      , #{cooling}
+      , #{price}
+      , #{comment}
+      , #{brand.brandId}
+      , 1
+      , NOW()
+    )
+  </insert>
 </mapper>

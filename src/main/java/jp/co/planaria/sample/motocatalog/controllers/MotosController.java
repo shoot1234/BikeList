@@ -105,6 +105,20 @@ public class MotosController {
     return "moto";
   }
 
+  /**
+   * 登録画面の初期表示
+   * @param motoForm 入力内容
+   * @param model Model
+   * @return 遷移先
+   */  
+  @GetMapping("/motos/new")
+  public String initNew(@ModelAttribute MotoForm motoForm, Model model) {
+    // ブランドリストを準備
+    this.setBrands(model);
+    
+    return "moto";
+  }
+
   @PostMapping("/motos/save")
   public String save(@ModelAttribute MotoForm motoForm, BindingResult result, Model model) {
     try {
