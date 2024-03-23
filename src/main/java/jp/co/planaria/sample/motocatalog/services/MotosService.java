@@ -40,8 +40,13 @@ public class MotosService {
 
   public int save(Motorcycle moto) {
     int cnt = motorcycleMapper.update(moto);
+    // 更新できなかった場合、更新されたか削除されたため楽観的排他エラーとする
     if (cnt == 0) {
       throw new OptimisticLockingFailureException("楽観的排他エラー");
+    }
+    // 2件以上更新は想定外(SQLの不備の可能性)
+    if (cnt > 1) {
+      throw new RuntimeException("2件以上更新されました。");
     }
     return cnt;
   }  
