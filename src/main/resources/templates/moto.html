@@ -22,6 +22,11 @@
       <form method="post" th:object="${motoForm}" th:action="@{/motos/save}">
         <div class="row">
           <div class="col">
+            <div class="alert alert-danger" role="alert" th:each="err : ${#fields.errors('*')}" th:text="${err}"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
             <label for="brand" class="form-label">番号</label>
             <span th:text="*{motoNo}"></span>
             <input type="hidden" th:field="*{motoNo}" />
