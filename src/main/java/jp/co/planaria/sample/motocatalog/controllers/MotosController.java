@@ -119,6 +119,13 @@ public class MotosController {
     return "moto";
   }
 
+  /**
+   * バイク情報を保存する。
+   * @param motoForm 入力内容
+   * @param result BindingResult
+   * @param model Model
+   * @return 遷移先
+   */
   @PostMapping("/motos/save")
   public String save(@ModelAttribute MotoForm motoForm, BindingResult result, Model model) {
     try {
@@ -128,6 +135,35 @@ public class MotosController {
       BeanUtils.copyProperties(motoForm, moto);
       // 情報を更新する
       int cnt = service.save(moto);
+      log.info("{}件更新", cnt);
+
+      // リダイレクト（一覧に遷移）
+      return "redirect:/motos";
+
+    } catch (OptimisticLockingFailureException e) {
+      // ブランドリストを準備
+      this.setBrands(model);
+      result.addError(new ObjectError("global", e.getMessage()));
+      return "moto";
+    }
+  }
+
+  /**
+   * バイク情報を削除する。
+   * @param motoForm 入力内容
+   * @param result BindingResult
+   * @param model Model
+   * @return 遷移先
+   */
+  @PostMapping("/motos/delete")
+  public String delete(@ModelAttribute MotoForm motoForm, BindingResult result, Model model) {
+    try {
+      log.info("motoForm:{}", motoForm);
+      Motorcycle moto = new Motorcycle();
+      // 入力内容を詰め替える
+      BeanUtils.copyProperties(motoForm, moto);
+      // 情報を削除する
+      int cnt = service.delete(moto);
       log.info("{}件更新", cnt);
 
       // リダイレクト（一覧に遷移）

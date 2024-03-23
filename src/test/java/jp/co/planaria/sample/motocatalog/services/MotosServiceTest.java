@@ -224,4 +224,17 @@ public class MotosServiceTest {
     assertThat(after.getInsDt().format(dtFormatter)).isEqualTo(LocalDateTime.now().format(dtFormatter));
     assertThat(after.getUpdDt()).isNull();
   }
+
+  @DisplayName("バイク情報削除")
+  @Test
+  @Transactional
+  @Rollback
+  void test013() {
+    Motorcycle before = service.getMotos(1);
+
+    service.delete(before);// 削除
+
+    Motorcycle after = service.getMotos(1);// 変更後のバイク情報取得
+    assertThat(after).isNull();;
+  }
 }
