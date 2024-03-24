@@ -16,6 +16,9 @@
     <nav class="navbar bg-dark border-bottom border-bottom-dark mb-3" data-bs-theme="dark">
       <div class="container-fluid">
         <span class="navbar-brand mb-0 h1" th:text="#{page.search}"></span>
+        <form th:action="@{/logout}" method="post">
+          <button class="btn btn-secondary">ログアウト</button>
+        </form>
       </div>
     </nav>
     <div class="container">
