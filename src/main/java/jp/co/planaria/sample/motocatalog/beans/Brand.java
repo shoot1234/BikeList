@@ -1,5 +1,6 @@
 package jp.co.planaria.sample.motocatalog.beans;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,9 +13,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Brand {
 
-  //ブランドID
+  // ブランドID
+  @NotBlank
   private String brandId;
-  //ブランド名
+  // ブランド名
   private String brandName;
-  
+
 }

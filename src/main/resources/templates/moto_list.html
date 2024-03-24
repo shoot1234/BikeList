@@ -73,10 +73,10 @@
                 <!--th:object属性を用いなければ本来は
                 <td th:text="${moto.motoName}"></td>」という書き方になる-->
                 <td><a th:href="@{/motos/} + *{motoNo}" th:text="*{motoName}"></a></td>
-                <!-- th:text=""の中にはコントローラから渡されたインスタンスだけでなく、''で囲った文字列を + で結合して表示もできる -->
-                <td th:text="*{cooling} + *{cylinder} + '気筒'"></td>
+                <td><span th:text="*{cooling}"></span><span th:text="*{cylinder}"></td>
                 <!-- 式基本オブジェクト、常に利用可能なオブジェクトや変数マップがあります。 #numbers：数値オブジェクトに対するユーティリティーメソッド群。　整数の最小桁数と千の位の区切り文字を設定します(thymeleafの公式ドキュメントに詳しく書いている) -->
-                <td th:text="*{#numbers.formatInteger(price, 3, 'COMMA')}" class="text-end"></td>
+                <!-- th:text=""の中にはコントローラから渡されたインスタンスだけでなく、''で囲った文字列を + で結合して表示もできる。今回は'円'を加えた -->
+                <td th:text="*{#numbers.formatInteger(price, 3, 'COMMA')} + '円'" class="text-end"></td>
                 <td th:text="*{comment}"></td>
               </tr>
             </tbody>

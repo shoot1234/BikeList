@@ -20,13 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.planaria.sample.motocatalog.beans.Brand;
 import jp.co.planaria.sample.motocatalog.beans.Motorcycle;
-import jp.co.planaria.sample.motocatalog.beans.SearchForm;
 import jp.co.planaria.sample.motocatalog.forms.MotoForm;
+import jp.co.planaria.sample.motocatalog.forms.SearchForm;
 import jp.co.planaria.sample.motocatalog.services.MotosService;
 import lombok.extern.slf4j.Slf4j;
 
-
-@Slf4j// ログ部品を使えるようになる
+@Slf4j // ログ部品を使えるようになる
 @Controller
 public class MotosController {
 
@@ -35,24 +34,26 @@ public class MotosController {
 
   @RequestMapping("/hello")
   // SpringBoot2系は＠RequestParamの()の省略が可能だが、3系は省略は出来ない。
-  public String hello(@RequestParam(name="nameA") String nameA, Model model) {
+  public String hello(@RequestParam(name = "nameA") String nameA, Model model) {
     model.addAttribute("name", nameA);
-      return "test";
+    return "test";
   }
+
   /**
    * バイク一覧を検索する。
+   * 
    * @param searchForm 検索条件
-   * @param model Model
+   * @param model      Model
    * @return 遷移先
    */
-  
+
   @GetMapping("/motos")
   // moto_list.htmlのフォームから送信される値のname属性の値と、引数のsearchFomのフィールド名でマッピングして、value属性の値やinputタグの入力欄の値を自動で代入する
   public String motos(@Validated SearchForm searchForm, BindingResult result, Model model) {
     log.info("検索条件；{}", searchForm);
     if (result.hasErrors()) {
       // 入力チェックエラーがある場合
-      return "moto_list";      
+      return "moto_list";
     }
 
     // ブランドリストを準備
@@ -72,8 +73,9 @@ public class MotosController {
   /**
    * 検索条件をクリアする。
    * motos_list.htmlのリセットボタンを押した時に入力欄を空にする為に、引数searchFormをnullにして画面に再アクセスして入力欄を空にする
+   * 
    * @param searchForm 検索条件
-   * @param model Model
+   * @param model      Model
    * @return 遷移先
    */
   @GetMapping("/motos/reset")
@@ -87,11 +89,12 @@ public class MotosController {
 
   /**
    * 更新画面の初期表示
-   * @param motoNo バイク番号
+   * 
+   * @param motoNo   バイク番号
    * @param motoForm 入力内容
-   * @param model Model
+   * @param model    Model
    * @return 遷移先
-   */  
+   */
   @GetMapping("/motos/{motoNo}")
   public String initUpdate(@PathVariable("motoNo") Integer motoNo, @ModelAttribute MotoForm motoForm, Model model) {
     // ブランドリストを準備
@@ -101,35 +104,44 @@ public class MotosController {
     Motorcycle moto = service.getMotos(motoNo);
     // 検索結果を入力内容に詰め替える
     BeanUtils.copyProperties(moto, motoForm);
-    
+
     return "moto";
   }
 
   /**
    * 登録画面の初期表示
+   * 
    * @param motoForm 入力内容
-   * @param model Model
+   * @param model    Model
    * @return 遷移先
-   */  
+   */
   @GetMapping("/motos/new")
   public String initNew(@ModelAttribute MotoForm motoForm, Model model) {
     // ブランドリストを準備
     this.setBrands(model);
-    
+
     return "moto";
   }
 
   /**
    * バイク情報を保存する。
+   * 
    * @param motoForm 入力内容
-   * @param result BindingResult
-   * @param model Model
+   * @param result   BindingResult
+   * @param model    Model
    * @return 遷移先
    */
   @PostMapping("/motos/save")
-  public String save(@ModelAttribute MotoForm motoForm, BindingResult result, Model model) {
+  public String save(@Validated MotoForm motoForm, BindingResult result, Model model) {
+    // ブランドリストを準備
+    this.setBrands(model);
     try {
       log.info("motoForm:{}", motoForm);
+      if (result.hasErrors()) {
+        // 入力チェックエラーがある場合
+        return "moto";
+      }
+
       Motorcycle moto = new Motorcycle();
       // 入力内容を詰め替える
       BeanUtils.copyProperties(motoForm, moto);
@@ -141,8 +153,6 @@ public class MotosController {
       return "redirect:/motos";
 
     } catch (OptimisticLockingFailureException e) {
-      // ブランドリストを準備
-      this.setBrands(model);
       result.addError(new ObjectError("global", e.getMessage()));
       return "moto";
     }
@@ -150,9 +160,10 @@ public class MotosController {
 
   /**
    * バイク情報を削除する。
+   * 
    * @param motoForm 入力内容
-   * @param result BindingResult
-   * @param model Model
+   * @param result   BindingResult
+   * @param model    Model
    * @return 遷移先
    */
   @PostMapping("/motos/delete")
@@ -179,10 +190,11 @@ public class MotosController {
 
   /**
    * ブランドリストをModelにセットする。
+   * 
    * @param model Model
    */
   private void setBrands(Model model) {
-    //ブランド
+    // ブランド
     List<Brand> brands = service.getBrands();
     model.addAttribute("brands", brands);
   }

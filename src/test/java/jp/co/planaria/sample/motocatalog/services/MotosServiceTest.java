@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.planaria.sample.motocatalog.beans.Brand;
 import jp.co.planaria.sample.motocatalog.beans.Motorcycle;
-import jp.co.planaria.sample.motocatalog.beans.SearchForm;
+import jp.co.planaria.sample.motocatalog.forms.SearchForm;
 
 @SpringBootTest
 public class MotosServiceTest {

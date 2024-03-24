@@ -22,7 +22,7 @@
       <form method="post" th:object="${motoForm}" th:action="@{/motos/save}">
         <div class="row">
           <div class="col">
-            <div class="alert alert-danger" role="alert" th:each="err : ${#fields.errors('*')}" th:text="${err}"></div>
+            <div class="alert alert-danger" role="alert" th:each="err : ${#fields.errors('global')}" th:text="${err}"></div>
           </div>
         </div>
         <div class="row" th:if="${motoForm.motoNo}">
@@ -35,39 +35,46 @@
         </div>
         <div class="row">
           <div class="col">
-            <label for="brand" class="form-label">メーカー</label>
-            <select th:field="*{brand.brandId}" class="form-select" id="brand" aria-label="Default select example">
+            <label for="brand" class="form-label">メーカー</label><span class="badge bg-danger">必須</span>
+            <select th:field="*{brand.brandId}" class="form-select" id="brand" aria-label="Default select example" th:errorClass="is-invalid">
               <option value=""></option>
               <option th:each="brand : ${brands}" th:text="${brand.brandName}" th:value="${brand.brandId}"></option>
             </select>
+            <div th:errors="*{brand.brandId}" class="invalid-feedback"></div>
           </div>
           <div class="col">
-            <label for="motoName" class="form-label">車名</label>
-            <input th:field="*{motoName}" type="text" class="form-control" id="motoName" placeholder="" />
+            <label for="motoName" class="form-label">車名</label><span class="badge bg-danger">必須</span>
+            <input th:field="*{motoName}" type="text" class="form-control" id="motoName" placeholder="" th:errorClass="is-invalid" maxlength="50" />
+            <div th:errors="*{motoName}" class="invalid-feedback"></div>
           </div>
           <div class="col">
             <label for="seatHeight" class="form-label">シート高</label>
-            <input th:field="*{seatHeight}" type="text" class="form-control" id="seatHeight" placeholder="" />
+            <input th:field="*{seatHeight}" type="number" class="form-control" id="seatHeight" placeholder="" th:errorClass="is-invalid" maxlength="4" />
+            <div th:errors="*{seatHeight}" class="invalid-feedback"></div>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <label for="cylinder" class="form-label">気筒</label>
-            <input th:field="*{cylinder}" type="text" class="form-control" id="cylinder" placeholder="" />
+            <input th:field="*{cylinder}" type="text" class="form-control" id="cylinder" placeholder="" th:errorClass="is-invalid" maxlength="1" />
+            <div th:errors="*{cylinder}" class="invalid-feedback"></div>
           </div>
           <div class="col">
             <label for="cooling" class="form-label">冷却方式</label>
-            <input th:field="*{cooling}" type="text" class="form-control" id="cooling" placeholder="" />
+            <input th:field="*{cooling}" type="text" class="form-control" id="cooling" placeholder="" th:errorClass="is-invalid" maxlength="10" />
+            <div th:errors="*{cooling}" class="invalid-feedback"></div>
           </div>
           <div class="col">
             <label for="price" class="form-label">価格</label>
-            <input th:field="*{price}" type="text" class="form-control" id="price" placeholder="" />
+            <input th:field="*{price}" type="text" class="form-control" id="price" placeholder="" th:errorClass="is-invalid" maxlength="7" />
+            <div th:errors="*{price}" class="invalid-feedback"></div>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <label for="comment" class="form-label">コメント</label>
-            <textarea th:field="*{comment}" class="form-control" id="comment" rows="3"></textarea>
+            <textarea th:field="*{comment}" class="form-control" id="comment" rows="3" th:errorClass="is-invalid" maxlength="200"></textarea>
+            <div th:errors="*{comment}" class="invalid-feedback"></div>
           </div>
         </div>
         <div class="row mt-3">
