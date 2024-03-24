@@ -20,3 +20,10 @@ CREATE TABLE m_brand (
     brand_id VARCHAR(2) NOT NULL PRIMARY KEY COMMENT 'ブランドID',
     brand_name VARCHAR(20) COMMENT 'ブランド名'
 ) COMMENT 'ブランドマスタ';
+
+-- ユーザマスタのテーブル作成
+DROP TABLE IF EXISTS m_user;
+CREATE TABLE m_user (
+    username VARCHAR(20) NOT NULL PRIMARY KEY COMMENT 'ユーザー名',
+    password VARCHAR(100) COMMENT 'パスワード'
+)COMMENT 'ユーザーマスタ';
