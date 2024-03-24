@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Update;
 
 import jp.co.planaria.sample.motocatalog.beans.Motorcycle;
-import jp.co.planaria.sample.motocatalog.beans.SearchForm;
+import jp.co.planaria.sample.motocatalog.forms.SearchForm;
 
 @Mapper
 public interface MotorcycleMapper {

@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.planaria.sample.motocatalog.beans.Brand;
 import jp.co.planaria.sample.motocatalog.beans.Motorcycle;
-import jp.co.planaria.sample.motocatalog.beans.SearchForm;
 import jp.co.planaria.sample.motocatalog.forms.MotoForm;
+import jp.co.planaria.sample.motocatalog.forms.SearchForm;
 import jp.co.planaria.sample.motocatalog.services.MotosService;
 import lombok.extern.slf4j.Slf4j;
 

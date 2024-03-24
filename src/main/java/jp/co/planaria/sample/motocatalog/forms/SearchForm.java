@@ -1,4 +1,4 @@
-package jp.co.planaria.sample.motocatalog.beans;
+package jp.co.planaria.sample.motocatalog.forms;
 
 import jakarta.validation.constraints.Size;
 import lombok.Data;
