@@ -2,6 +2,7 @@
 * Docker Compose(MySQL環境)
 * Spring Boot 3.2.3
 * Java 17
+* Gradle
 * Spring Boot Dev Tools
 * Spring Web
 * Thymeleaf
