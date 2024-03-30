@@ -8,7 +8,6 @@
 * Thymeleaf
 * Bootstrap
 * Lombok
-* MySQL Driver
 * MyBatis
 * Spring Security
 * Spring AOP
