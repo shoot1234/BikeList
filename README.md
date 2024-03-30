@@ -5,6 +5,7 @@
 * Spring Boot Dev Tools
 * Spring Web
 * Thymeleaf
+* Bootstrap
 * Lombok
 * MySQL Driver
 * MyBatis
